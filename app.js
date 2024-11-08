@@ -7,6 +7,8 @@ const modeBtn = document.getElementById("mode-btn");
 const resetBtn = document.getElementById("reset-btn");
 const eraserBtn = document.getElementById("eraser-btn");
 const fileInput = document.getElementById("file");
+const textInput = document.getElementById("text");
+const saveBtn = document.getElementById("save");
 
 const CANVAS_WIDTH = 800;
 const CANVAS_HEIGHT = 800;
@@ -15,6 +17,7 @@ canvas.width = CANVAS_WIDTH;
 canvas.height = CANVAS_HEIGHT;
 
 ctx.lineWidth = lineWidth.value;
+ctx.lineCap = "round"; // 그려지는 라인 둥글게 만드어주기
 
 let isPaingting = false;
 let isFilling = false;
@@ -97,11 +100,31 @@ function onFileChange(event) {
 2. canvas.onmousemove = onMove;
 */
 
+function onDoubleClick(event) {
+  const text = textInput.value;
+  if (text !== "") {
+    ctx.save(); // save()하는 시점. 현재 상태와 선택들을 저장해둠
+    ctx.lineWidth = 1; // text는 lineWidth 1일때만 잘 보여서 이렇게 세팅은 했는데, 다시 선을 그릴때는 세팅된 굵기로 그려야하자나 그래서 save, restore 사용
+    ctx.font = "50px serif"; // size family
+    ctx.fillText(text, event.offsetX, event.offsetY); // fillText, strokeText
+    ctx.restore(); // 저장했던거 다시 불러오기, save()와 restore() 사이 내용은 저장되지 않아
+  }
+}
+
+function onSaveClick() {
+  const url = canvas.toDataURL();
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = "myDrawing.png";
+  a.click();
+}
+
 canvas.addEventListener("mousemove", onMove);
 canvas.addEventListener("mousedown", startPainting);
 canvas.addEventListener("mouseup", cancelPainting);
 canvas.addEventListener("mouseleave", cancelPainting);
 canvas.addEventListener("click", onCanvasClick);
+canvas.addEventListener("dblclick", onDoubleClick);
 
 lineWidth.addEventListener("change", onLineWidthChange);
 colorInput.addEventListener("change", onColorChange);
@@ -113,3 +136,4 @@ modeBtn.addEventListener("click", onModeChange);
 resetBtn.addEventListener("click", onResetCanvas);
 eraserBtn.addEventListener("click", onEraserBrush);
 fileInput.addEventListener("change", onFileChange);
+saveBtn.addEventListener("click", onSaveClick);
