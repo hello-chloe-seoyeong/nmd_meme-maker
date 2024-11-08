@@ -7,9 +7,7 @@
     <link rel="stylesheet" href="./styles.css" />
   </head>
   <body>
-    <canvas></canvas>
-    <input id="line-width" type="range" min="1" max="10" value="5" />
-    <div>
+    <div class="color-options">
       <input id="color" type="color" />
       <div
         class="color-option"
@@ -49,18 +47,8 @@
       ></div>
       <div
         class="color-option"
-        style="background-color: #95a5a6"
-        data-color="#95a5a6"
-      ></div>
-      <div
-        class="color-option"
         style="background-color: #d35400"
         data-color="#d35400"
-      ></div>
-      <div
-        class="color-option"
-        style="background-color: #bdc3c7"
-        data-color="#bdc3c7"
       ></div>
       <div
         class="color-option"
@@ -73,13 +61,20 @@
         data-color="#e67e22"
       ></div>
     </div>
-    <button id="mode-btn">Fill</button>
-    <button id="reset-btn">Reset</button>
-    <button id="eraser-btn">Eraser</button>
-    <input type="file" accept="image/*" id="file" />
-    <!-- accept="image/*" image 파일은 무슨 확장자든 오께이  -->
-    <input type="text" placeholder="Write and then double click" id="text" />
-    <button id="save">Save</button>
+    <canvas></canvas>
+    <div class="btns">
+      <input id="line-width" type="range" min="1" max="10" value="5" />
+
+      <button id="mode-btn">Fill</button>
+      <button id="reset-btn">Reset</button>
+      <button id="eraser-btn">Eraser</button>
+      <label for="file"
+        >Add Photo<input type="file" accept="image/*" id="file"
+      /></label>
+      <!-- accept="image/*" image 파일은 무슨 확장자든 오께이  -->
+      <input type="text" placeholder="Write and then double click" id="text" />
+      <button id="save">Save</button>
+    </div>
 
     <script src="app.js"></script>
   </body>
